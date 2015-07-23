@@ -2,7 +2,7 @@
 /*
  *      mysqlBackup.class.php
  *
- *      Copyright 2011 Ovidiu Liuta <info@thinkovi.com>
+ *      Copyright 2014 Ovidiu Liuta <info@thinkovi.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -105,15 +105,15 @@ class DB{
 	 */
 	public function connect(){
 
-		self::$link = mysql_connect(self::$dbHostname, self::$dbUsername, self::$dbPassword);
+		self::$link = mysqli_connect(self::$dbHostname, self::$dbUsername, self::$dbPassword);
 		if (!self::$link) {
-		    self::error('Could not connect: ' . mysql_error());
+		    self::error('Could not connect: ' . mysqli_error(self::$link));
 		}
 
 		if(self::$dbDatabase != ""){
-			self::$db_selected = mysql_select_db(self::$dbDatabase, self::$link);
+			self::$db_selected = mysqli_select_db(self::$link, self::$dbDatabase);
 			if (!self::$db_selected) {
-				self::error ('Can\'t use foo : ' . mysql_error());
+				self::error ('Can\'t use foo : ' . mysqli_error(self::$link));
 			}
 		}
 
@@ -128,7 +128,7 @@ class DB{
 	 */
 	public function disconnect(){
 
-		mysql_close(self::$link);
+		//mysqli_close(self::$link);
 
 	}
 
@@ -143,7 +143,7 @@ class DB{
 
 		self::query("SET SQL_QUOTE_SHOW_CREATE=1;");
 		self::query("SET sql_mode = 0;");
-		mysql_set_charset('utf8', self::$link);
+		mysqli_set_charset(self::$link, 'utf8');
 		if (self::$dbCompatibility)
 			self::query("SET sql_mode=" . self::$dbCompatibility . ";");
 
@@ -158,11 +158,11 @@ class DB{
 	 */
 	public function query($query){
 
-		$result = mysql_query($query.";", self::$link);
+		$result = mysqli_query(self::$link, $query.";");
 		self::error($query, 1);
 
 		if (!$result) {
-			self::error('Invalid query: ' . mysql_error());
+			self::error('Invalid query: ' . mysqli_error(self::$link));
 			return false;
 		}
 		else{
@@ -186,7 +186,7 @@ class DB{
 
 		$result = self::query("SHOW TABLES in `".self::$dbDatabase."`");
 
-		while ($row = mysql_fetch_array($result)){
+		while ($row = mysqli_fetch_array( $result)){
 			$tablesList[$inc]['table'] = $row[0];
 
 			if(is_array($excluded))
@@ -243,7 +243,7 @@ class DB{
 
 			$result = self::query("SELECT count(*) FROM $table;");
 
-			$count = mysql_fetch_row($result);
+			$count = mysqli_fetch_row($result);
 
 			return intval($count[0]) ;// not max limit on 32 bit systems 2147483647; on 64 bit 9223372036854775807
 
@@ -390,7 +390,7 @@ class DB{
 
 		$result = self::query("SELECT * from `$databaseName`.`$tableName` Limit $start, $limit ;");
 		if($result){
-			while($row = mysql_fetch_array($result, MYSQL_ASSOC)){
+			while($row = mysqli_fetch_array($result, MYSQL_ASSOC)){
 
 					fwrite($fd, "INSERT INTO `$tableName` VALUES (");
 					$arr = $row;
@@ -398,7 +398,7 @@ class DB{
 					self::$countRecords++;
 
 	                foreach ($arr as $key => $value) {
-						$value = mysql_real_escape_string($value);
+						$value = mysqli_real_escape_string(self::$link, $value);
 						$buffer .= "'".$value."', ";
 					}
 					$buffer = rtrim($buffer, ', ') . ");\n";
@@ -419,7 +419,7 @@ class DB{
 
 		$result = self::query("SHOW CREATE table `$databaseName`.`$tableName`;");
 		if($result){
-			$row = mysql_fetch_row($result);
+			$row = mysqli_fetch_row( $result);
 			fwrite($fd, $row[1].";\n");
 		}
 
@@ -470,7 +470,7 @@ class DB{
 
 		$result = self::query("SHOW VARIABLES LIKE \"%version%\";");
 		if($result){
-			while($row = mysql_fetch_array($result)){
+			while($row = mysqli_fetch_array($result)){
 
 					$return .= "# MYSQL ".$row[0].": ".$row[1]."\n";
 
@@ -484,5 +484,3 @@ class DB{
 
 
 }
-
-?>

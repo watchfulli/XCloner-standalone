@@ -1,0 +1,168 @@
+<install type="component" version="1.5.0" method="upgrade">
+    <name>XCloner-BackupandRestore</name>
+    <version>3.5</version>
+    <license>GNU/GPL</license>
+    <author>XCloner.com</author>
+    <authoremail>info@xcloner.com</authoremail>
+    <authorurl>http://www.xcloner.com</authorurl>
+    <creationDate>Mar 2014</creationDate>
+    <copyright>XCloner.com</copyright>
+    <description><![CDATA[
+      <h2>XCloner Backup&Restore Utility</h2>
+      <pre>XCloner is a tool that will help you manage your website backups, generate/restore/move so your website will be always secured!
+	   <a href="http://www.xcloner.com"><img src="http://www.xcloner.com/xcloner_p.jpg" border=0 style="float:left; padding-right:10px;padding-bottom: 100px;padding-top:20px;"></a>
+      Features:
+       -cron script to generate backup
+       -multiple backup options
+       -restore tool to move the website rapidly to other locations
+       -multiple locations of where you could store the backup safelly
+       -comnpatible with all versions of Joomla
+
+       For reports and suggestions please contact us at info@xcloner.com or visit us on <a href='http://www.xcloner.com'>http://www.xcloner.com</a>
+        </pre>
+      <br/>
+
+      XCloner.com &copy; 2006-2013 | <a href="http://www.xcloner.com">www.xcloner.com</a>
+      <br/><p/><br/>
+	]]>
+    </description>
+    <installfile>install.xcloner.php</installfile>
+    <administration>
+        <menu img="components/com_xcloner-backupandrestore/images/xcloner.png" alias="XCloner">.XCloner-Backup and Restore</menu>
+                <files>
+					<filename>admin.xcloner.php</filename>
+					<filename>admin.xcloner-backupandrestore.php</filename>
+					<filename>xcloner.php</filename>
+					
+					<filename>classes/phpseclib/Crypt/AES.php</filename>
+					<filename>classes/phpseclib/Crypt/DES.php</filename>
+					<filename>classes/phpseclib/Crypt/Hash.php</filename>
+					<filename>classes/phpseclib/Crypt/Random.php</filename>
+					<filename>classes/phpseclib/Crypt/RC4.php</filename>
+					<filename>classes/phpseclib/Crypt/Rijndael.php</filename>
+					<filename>classes/phpseclib/Crypt/RSA.php</filename>
+					<filename>classes/phpseclib/Crypt/TripleDES.php</filename>
+					<filename>classes/phpseclib/Math/BigInteger.php</filename>
+					<filename>classes/phpseclib/Net/SFTP.php</filename>
+					<filename>classes/phpseclib/Net/SSH1.php</filename>
+					<filename>classes/phpseclib/Net/SSH2.php</filename>
+					<filename>classes/phpseclib/PHP/Compat/Function/array_fill.php</filename>
+					<filename>classes/phpseclib/PHP/Compat/Function/bcpowmod.php</filename>
+					<filename>classes/phpseclib/PHP/Compat/Function/str_split.php</filename>
+					
+					<filename>classes/S3.php</filename>
+					<filename>classes/DropboxClient.php</filename>
+					<filename>classes/OAuthSimple.php</filename>
+					<filename>tokens/index.html</filename>
+					
+					<filename>classes/fileRecursion.php</filename>
+					<filename>classes/index.html</filename>
+					<filename>classes/main.class.php</filename>
+					<filename>classes/mysqlBackup.class.php</filename>
+					<filename>administrator/index.html</filename>
+					<filename>administrator/backups/index.html</filename>
+					<filename>browser/file.gif</filename>
+					<filename>browser/filebrowser.css</filename>
+					<filename>browser/files_inpage.php</filename>
+					<filename>browser/files_xml.php</filename>
+					<filename>browser/folder.gif</filename>
+					<filename>browser/timer.gif</filename>
+					<filename>browser/xmlhttp.js</filename>
+					<filename>configs/index.html</filename>
+					<filename>css/dtree.css</filename>
+					<filename>css/main.css</filename>
+					<filename>css/start/jquery-ui-1.8.9.custom.css</filename>
+					<filename>css/start/images/ui-bg_flat_55_999999_40x100.png</filename>
+					<filename>css/start/images/ui-bg_flat_75_aaaaaa_40x100.png</filename>
+					<filename>css/start/images/ui-bg_glass_75_79c9ec_1x400.png</filename>
+					<filename>css/start/images/ui-icons_056b93_256x240.png</filename>
+					<filename>css/start/images/ui-icons_d8e7f3_256x240.png</filename>
+					<filename>css/start/images/ui-icons_fcd113_256x240.png</filename>
+					<filename>css/start/images/ui-bg_glass_45_0078ae_1x400.png</filename>
+					<filename>css/start/images/ui-icons_f7a50d_256x240.png</filename>
+					<filename>css/start/images/ui-bg_gloss-wave_45_e14f1c_500x100.png</filename>
+					<filename>css/start/images/ui-icons_0078ae_256x240.png</filename>
+					<filename>css/start/images/ui-bg_glass_55_f8da4e_1x400.png</filename>
+					<filename>css/start/images/ui-icons_e0fdff_256x240.png</filename>
+					<filename>css/start/images/ui-bg_inset-hard_100_fcfdfd_1x100.png</filename>
+					<filename>css/start/images/ui-icons_f5e175_256x240.png</filename>
+					<filename>css/start/images/ui-bg_gloss-wave_50_6eac2c_500x100.png</filename>
+					<filename>css/start/images/ui-bg_gloss-wave_75_2191c0_500x100.png</filename>
+
+					<filename>images/about.png</filename>
+					<filename>images/actions.gif</filename>
+					<filename>images/actions.png</filename>
+					<filename>images/backup.png</filename>
+					<filename>images/css.png</filename>
+					<filename>images/editions.png</filename>
+					<filename>images/editionssm.png</filename>
+					<filename>images/empty.gif</filename>
+					<filename>images/filesave.png</filename>
+					<filename>images/folder.png</filename>
+					<filename>images/forum.png</filename>
+					<filename>images/gen_settings.png</filename>
+					<filename>images/help.png</filename>
+					<filename>images/helpsm.png</filename>
+					<filename>images/join.gif</filename>
+					<filename>images/joinbottom.gif</filename>
+					<filename>images/keep_icon.gif</filename>
+					<filename>images/lang.png</filename>
+					<filename>images/lhelp.png</filename>
+					<filename>images/line.gif</filename>
+					<filename>images/logo.gif</filename>
+					<filename>images/logo.png</filename>
+					<filename>images/xcloner.png</filename>
+					<filename>images/minus.gif</filename>
+					<filename>images/minusbottom.gif</filename>
+					<filename>images/nolines_minus.gif</filename>
+					<filename>images/nolines_plus.gif</filename>
+					<filename>images/page.gif</filename>
+					<filename>images/plus.gif</filename>
+					<filename>images/plusbottom.gif</filename>
+					<filename>images/publish_x.png</filename>
+					<filename>images/settings.png</filename>
+					<filename>images/support.png</filename>
+					<filename>images/templatessm.png</filename>
+					<filename>images/website.png</filename>
+					<filename>images/wizard.png</filename>
+					<filename>images/wizardsm.png</filename>
+					<filename>images/wizardsm_restore.gif</filename>
+					<filename>images/wizardsm_restore.png</filename>
+					<filename>javascript/dtree.js</filename>
+					<filename>javascript/main.js</filename>
+					<filename>javascript/jquery-1.4.4.min.js</filename>
+					<filename>javascript/jquery-ui-1.8.9.custom.min.js</filename>
+					<filename>language/english.php</filename>
+					<filename>language/catalan.php</filename>
+					<filename>language/spanish.php</filename>
+					<filename>language/slovenian.php</filename>
+					<filename>language/dutch.php</filename>
+					<filename>language/deutsch.php</filename>
+					<filename>language/polish.php</filename>
+					<filename>language/francais.php</filename>
+					<filename>language/italian.php</filename>
+					<filename>language/russian.php</filename>
+					<filename>language/hungarian.php</filename>
+					<filename>language/index.html</filename>
+					<filename>restore/TAR.php</filename>
+					<filename>restore/XCloner.php</filename>
+					<filename>admin.cloner.html.php</filename>
+					<filename>admin.cloner.php</filename>
+					<filename>cloner.config.php</filename>
+					<filename>cloner.cron.php</filename>
+					<filename>cloner.functions.php</filename>
+					<filename>common.php</filename>
+					<filename>index.php</filename>
+					<filename>index2.php</filename>
+					<filename>install.xcloner.php</filename>
+					<filename>license.txt</filename>
+					<filename>readme.txt</filename>
+					<filename>toolbar.cloner.html.php</filename>
+					<filename>toolbar.cloner.php</filename>
+					
+					
+        </files>
+    </administration>
+</install>
+
+

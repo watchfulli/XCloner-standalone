@@ -1,0 +1,34 @@
+body{
+      font-family:Arial, Helvetica, sans-serif;
+      font-size: 76%;
+}
+#browser{
+      width: 90%;
+      border: 1px solid #ddd;
+      padding: 0.2em 1em;
+      margin:1em;
+}
+.searching{
+      background: #efefef url(components/com_cloner/browser/timer.gif) no-repeat 46% 46%;
+}
+#header {
+      color: #FFFFFF;
+      background-color: #3571CA;
+      padding: 0.2em;
+}
+#content {
+      padding: 0.2em;
+      border: 1px solid #999999;
+}
+li.file {
+    white-space: nowrap;
+    }
+li.folder {
+    white-space: nowrap;
+    }
+li.folder a{
+    font-size: 16px;
+    color: #000000;
+    background: #efefef;
+
+    }

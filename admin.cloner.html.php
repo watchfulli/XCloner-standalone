@@ -218,7 +218,7 @@ function footer(){
 </td></tr></table>
 <hr><br /><br />
 <center>
-<p>Powered by <a href='http://www.xcloner.com' target='_blank'>XCloner</a>. Backup and Restore Made Easy!</p></center>
+<p>Powered by <a href='http://www.xcloner.com' target='_blank'>XCloner</a>. Backup and Restore Made Easy! Version <?php echo XCLONER_VERSION;?></p></center>
 
 </td></tr></table>
 <script>

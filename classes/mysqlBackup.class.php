@@ -162,7 +162,8 @@ class DB{
 		self::error($query, 1);
 
 		if (!$result) {
-			self::error('Invalid query: ' . mysqli_error(self::$link));
+			self::error('Invalid query: '. $query . mysqli_error(self::$link));
+			print_r(debug_backtrace());
 			return false;
 		}
 		else{
@@ -180,8 +181,7 @@ class DB{
 	 * @return array $tablesList
 	 */
 	public function listTables($excluded){
-
-		$tablesList = array("");
+		$tablesList = array();
 		$inc = 0;
 
 		$result = self::query("SHOW TABLES in `".self::$dbDatabase."`");
@@ -193,8 +193,11 @@ class DB{
 				if( in_array($row[0], $excluded) )
 					$tablesList[$inc]['excluded'] = 1;
 			$inc++;
+			
         }
-
+        
+        
+        
 		return $tablesList;
 
 	}

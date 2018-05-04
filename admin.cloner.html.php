@@ -29,7 +29,7 @@ if($_COOKIE['auth_clone'] != 1)
 
 class mosTabs{
 
-	function mosTabs($int){
+	function __construct($int){
 
 		echo "<div id=\"tabs\">";
 
@@ -1988,8 +1988,8 @@ function showBackups( &$files, &$sizes, $path, $option ) {
 
 		    $curent_dbs = explode(",", $_CONFIG['databases_incl_list']);
 
-		    $query = @mysql_query("SHOW databases");
-		    while($row = @mysql_fetch_array($query)){
+		    $query = @mysqli_query($_CONFIG['link'], "SHOW databases");
+		    while($row = @mysqli_fetch_array( $query)){
 
 			   $table = $row[0];
 
@@ -2447,8 +2447,8 @@ function showBackups( &$files, &$sizes, $path, $option ) {
 	<select name='excltables[]' MULTIPLE SIZE=15>
     <?php
 
-    $query = mysql_query("SHOW tables");
-    while($row = mysql_fetch_array($query)){
+    $query = mysqli_query($_CONFIG['link'], "SHOW tables");
+    while($row = mysqli_fetch_array( $query)){
 
 		 echo "<option value='".$row[0]."'>$row[0]</option>";
 
@@ -2468,9 +2468,9 @@ function showBackups( &$files, &$sizes, $path, $option ) {
     <select name='databases_incl[]' MULTIPLE SIZE=5>
     <?php
 
-    $query = mysql_query("SHOW databases");
+    $query = mysqli_query($_CONFIG['link'], "SHOW databases");
 
-	while($row = mysql_fetch_array($query)){
+	while($row = mysqli_fetch_array($query)){
 
 		if($_CONFIG['mysql_database'] != $row[0])
 			echo "<option value='".$row[0]."'>$row[0]</option>";

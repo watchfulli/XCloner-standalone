@@ -194,7 +194,7 @@ function step2($file=""){
 
     global $_CONFIG,$filepath ;
 
-    $DBcreated	= $_REQUEST[DBcreated];
+    $DBcreated	= $_REQUEST['DBcreated'];
 
     if ($DBcreated=='on'){
 	    $DBhostname = $_REQUEST['mysql_server'];
@@ -202,19 +202,19 @@ function step2($file=""){
 		$DBpassword = $_REQUEST['mysql_pass'];
 		$DBname  	= $_REQUEST['mysql_db'];
 
-		$db = @mysql_connect($DBhostname, $DBuserName, $DBpassword) or die("<br />The database details provided are incorrect and/or empty. Unable to connect to mysql server");
-		@mysql_query("CREATE database $DBname;");
-		if (!@mysql_select_db($DBname)) {
+		$db = @mysqli_connect($DBhostname, $DBuserName, $DBpassword) or die("<br />The database details provided are incorrect and/or empty. Unable to connect to mysql server");
+		@mysqli_query($db, "CREATE database $DBname;");
+		if (!@mysqli_select_db($db, $DBname)) {
 			die("<br /><span class='error'>Could not connect to $DBname database! Please make sure the database exists and that you assigned the mysql user to it...</span>");
 		}
 		
-		mysql_query("SET sql_mode='';");
-		mysql_query("SET foreign_key_checks = 0;");
+		mysqli_query($db, "SET sql_mode='';");
+		mysqli_query($db, "SET foreign_key_checks = 0;");
 		
 		if($_REQUEST['charset_of_file']!="")
-			mysql_query("SET NAMES ".$_REQUEST['charset_of_file']."");
+			mysqli_query($db, "SET NAMES ".$_REQUEST['charset_of_file']."");
 		else
-			mysql_query("SET NAMES utf8;");
+			mysqli_query($db, "SET NAMES utf8;");
     }
 
 if($_REQUEST['do_database'] != 1){
@@ -993,7 +993,7 @@ if(trim($line) != ''){
 
 	 }
 
-	if(!mysql_query($line_tmp)){
+	if(!mysqli_query($db, $line_tmp)){
 
        if($_REQUEST['correct_query'] != 1)
 
@@ -1013,7 +1013,7 @@ if(trim($line) != ''){
 
 	   <center>";
 
-	   echo sprintf("<b>###MYSQL error</b>\n<br /><font color='red'>".mysql_error()."</font><br />\n<b>###On Query:</b><br />\n<br /><textarea cols=70 rows=15 name='error_msg'>%s</textarea><br />", $query);
+	   echo sprintf("<b>###MYSQL error</b>\n<br /><font color='red'>".mysqli_error($db)."</font><br />\n<b>###On Query:</b><br />\n<br /><textarea cols=70 rows=15 name='error_msg'>%s</textarea><br />", $query);
 
 	   echo "<b>Search and replace in query:</b><br /><textarea cols=70 rows=5 name='strrep'>".stripslashes($_REQUEST[strrep])."</textarea><br />
 
@@ -1109,7 +1109,7 @@ function populate_db( $db, $sqlfile='administrator/backups/database-sql.sql') {
 
 		if(!empty($pieces[$i]) && $pieces[$i] != "#") {
 
-			if (!mysql_query($pieces[$i], $db)) {
+			if (!mysqli_query($db, $pieces[$i])) {
 
                  $errors[] = "\n\n##Mysql Query: \n########\n".
 
@@ -1117,7 +1117,7 @@ function populate_db( $db, $sqlfile='administrator/backups/database-sql.sql') {
 
 							 "\n########\n##Error message: ".
 
-							 mysql_error();
+							 mysqli_error($db);
 
 
 

@@ -1359,14 +1359,14 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
               foreach ($databases_incl as $database_name)
                   if ($database_name != '') {
                       $excltables = "";
-                      mysql_query("USE  $database_name");
+                      mysqli_query($_CONFIG['link'], "USE  $database_name");
 
                       $sql_file[] = doBackup($tables, 'sql', 'local', 'both', $_SERVER['HTTP_USER_AGENT'], $_CONFIG['backups_dir'], $databaseResult_incl, $database_name, $excltables, $database_name);
 
                       $databaseResult .= "<br /> <b>$database_name:</b> " . $databaseResult_incl;
                   }
 
-              mysql_query("USE  " . $_CONFIG['mysql_database']);
+              mysqli_query($_CONFIG['link'], "USE  " . $_CONFIG['mysql_database']);
           }
       } else {
           #$databaseResult = LM_DATABASE_EXCLUDED;
@@ -1938,8 +1938,8 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
 
       if ($tables[0] == "all") {
           array_pop($tables);
-          $query = mysql_query("SHOW tables");
-          while ($row = mysql_fetch_array($query)) {
+          $query = mysqli_query($_CONFIG['link'], "SHOW tables");
+          while ($row = mysqli_fetch_array($query)) {
               $tables_list[] = $row[0];
           }
 
@@ -1991,19 +1991,19 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
       }
 
       /*Added some default values for quotes and auto_increment problems*/
-      mysql_query("SET SQL_QUOTE_SHOW_CREATE=1;");
-      mysql_query("SET sql_mode = 0;");
+      mysqli_query($_CONFIG['link'], "SET SQL_QUOTE_SHOW_CREATE=1;");
+      mysqli_query($_CONFIG['link'], "SET sql_mode = 0;");
 
       if ($_REQUEST['dbbackup_comp']) {
-          mysql_query("SET sql_mode=" . $_REQUEST['dbbackup_comp'] . ";");
+          mysqli_query($_CONFIG['link'], "SET sql_mode=" . $_REQUEST['dbbackup_comp'] . ";");
       }
 
 
       /* Store the "Create Tables" SQL in variable $CreateTable[$tblval] */
       if ($toBackUp != "data") {
           foreach ($tables as $tblval) {
-              $query = mysql_query("SHOW CREATE table `$tblval`");
-              $row = mysql_fetch_array($query);
+              $query = mysqli_query($_CONFIG['link'], "SHOW CREATE table `$tblval`");
+              $row = mysqli_fetch_array($query);
               $CreateTable[$tblval] = $row[1];
           }
       }
@@ -2011,8 +2011,8 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
       /* Store all the FIELD TYPES being backed-up (text fields need to be delimited) in variable $FieldType*/
       if ($toBackUp != "structure") {
           foreach ($tables as $tblval) {
-              $query = mysql_query("SHOW FIELDS FROM `$tblval`");
-              while ($row = mysql_fetch_row($query)) {
+              $query = mysqli_query($_CONFIG['link'], "SHOW FIELDS FROM `$tblval`");
+              while ($row = mysqli_fetch_row($query)) {
                   $fields[] = $row[0];
               }
               foreach ($fields as $field) {
@@ -2065,13 +2065,13 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
 
           if ($toBackUp != "structure") {
               $OutBuffer .= "#\n# Dumping data for table `$tblval`\n#\n";
-              $query = @mysql_query("SELECT *  FROM `$tblval`");
+              $query = @mysqli_query($_CONFIG['link'], "SELECT *  FROM `$tblval`");
 
-              while ($row = @mysql_fetch_array($query, MYSQL_ASSOC)) {
+              while ($row = @mysqli_fetch_array($query, MYSQL_ASSOC)) {
                   $InsertDump = "INSERT INTO `$tblval` VALUES (";
                   $arr = $row;
                   foreach ($arr as $key => $value) {
-                      $value = mysql_real_escape_string($value);
+                      $value = mysqli_real_escape_string($_CONFIG['link'], $value);
                       #$value = str_replace("\n", '\r\n', $value);
                       #$value = str_replace("\r", '', $value);
                       //if (@preg_match ("/\b" . $FieldType[$tblval][$key] . "\b/i", "DATE TIME DATETIME CHAR VARCHAR TEXT TINYTEXT MEDIUMTEXT LONGTEXT BLOB TINYBLOB MEDIUMBLOB LONGBLOB ENUM SET"))
@@ -2139,9 +2139,12 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
 	}
 
 	function getVersion()
-	{
-	  $query = mysql_query("SELECT version()");
-	  $row = mysql_fetch_array($query);
-	  return $row[0];
+	{	
+		global $_CONFIG;
+		
+		$query = mysqli_query($_CONFIG['link'], "SELECT version()");
+		$row = mysqli_fetch_array($query);
+		
+		return $row[0];
 	}
 ?>

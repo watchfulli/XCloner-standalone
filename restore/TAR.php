@@ -31,7 +31,7 @@ define ('ARCHIVE_TAR_END_BLOCK', pack("a512", ''));
 * @version  $Revision: 1.39 $
 * @package  Archive
 */
-class archive_tar
+class Archive_Tar
 {
     /**
     * @var string Name of the Tar
@@ -84,7 +84,7 @@ class archive_tar
     *                   boolean value 'true' means 'gz'.
     * @access public
     */
-    function Archive_Tar($p_tarname, $p_compress = null)
+    function __construct($p_tarname, $p_compress = null)
     {
         #$this->PEAR();
         $this->_compress = false;
@@ -1443,7 +1443,7 @@ class archive_tar
         return false;
 
       if ($v_header['filename'] == '') {
-        continue;
+        //continue;
       }
 
       // ----- Look for long filename

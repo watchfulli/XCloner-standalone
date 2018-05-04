@@ -63,10 +63,10 @@ $task = $_REQUEST['task'];
 if($_CONFIG['enable_db_backup']){
 
 ### Connecting to the mysql server
-$link = @mysql_connect($_CONFIG['mysql_host'], $_CONFIG['mysql_user'], $_CONFIG['mysql_pass']) or
-    E_print("Could not connect: " . mysql_error());
-@mysql_select_db($_CONFIG['mysql_database']) or E_print("Unable to select database ".$_CONFIG['mysql_database']);
-@mysql_query("SET NAMES 'utf8'");
+$_CONFIG['link'] = @mysqli_connect($_CONFIG['mysql_host'], $_CONFIG['mysql_user'], $_CONFIG['mysql_pass']) or
+    E_print("Could not connect: " . mysqli_error($_CONFIG['link']));
+@mysqli_select_db($_CONFIG['link'], $_CONFIG['mysql_database']) or E_print("Unable to select database ".$_CONFIG['mysql_database']);
+@mysqli_query($_CONFIG['link'], "SET NAMES 'utf8'");
 }
 
 

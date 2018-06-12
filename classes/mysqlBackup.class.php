@@ -393,7 +393,8 @@ class DB{
 
 		$result = self::query("SELECT * from `$databaseName`.`$tableName` Limit $start, $limit ;");
 		if($result){
-			while($row = mysqli_fetch_array($result, MYSQL_ASSOC)){
+			while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+							
 
 					fwrite($fd, "INSERT INTO `$tableName` VALUES (");
 					$arr = $row;

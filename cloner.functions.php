@@ -2067,7 +2067,7 @@ function smartReadFile($location, $filename, $mimeType='application/octet-stream
               $OutBuffer .= "#\n# Dumping data for table `$tblval`\n#\n";
               $query = @mysqli_query($_CONFIG['link'], "SELECT *  FROM `$tblval`");
 
-              while ($row = @mysqli_fetch_array($query, MYSQL_ASSOC)) {
+              while ($row = @mysqli_fetch_array($query, MYSQLI_ASSOC)) {
                   $InsertDump = "INSERT INTO `$tblval` VALUES (";
                   $arr = $row;
                   foreach ($arr as $key => $value) {

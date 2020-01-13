@@ -23,7 +23,7 @@
 /** ensure this file is being included by a parent file */
 defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
 
-define("XCLONER_VERSION", "3.6.0");
+define("XCLONER_VERSION", "3.7.0");
 
 if ((!extension_loaded('zlib')) &&(function_exists('ob_start'))) {
                 ob_end_clean();
